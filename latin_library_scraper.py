@@ -1,8 +1,11 @@
 '''
 Author: Bancks Holmes
 File: Latin_Library_Scraper.py
-Usage: This program scrapes the text from each page of thelatinlibrary.com and stores it as its own
-text file.
+Usage: This program scrapes the text from each page of 
+thelatinlibrary.com and stores it as its own text file.
+In the future, I plan that it should accept a command line
+argument that is a url and it will clone the file structure 
+of the desired site.
 '''
 
 import requests
@@ -16,14 +19,63 @@ headers = {
 
 cache = []
 link_text = []
-blacklist_exts = ['index.html', 'classics.html', '/classics.html', '/index.html']
+blacklist_exts = ['index.html', 'classics.html']
 
 def get_ext(url):
-    while char in reversed(url) != '/':
-        pass
-    #return ext
+    '''accepts a url as a string and works backwards to 
+    determine the extension of the url, which it returns 
+    as a string '''
+    ext = ""
+    for char in reversed(url):
+        if char != '/':
+            ext = char + ext
+        else:
+            return ext
+
+def good_ext(ext):
+    '''accepts a extension as a string argument and 
+    returns false if that string is in the blacklist, 
+    true if it is not'''
+    if ext in blacklist_exts:
+        return False
+    else:
+        return True
+
+def new_ext(ext):
+    '''accepts a extension as a string argument and 
+    returns false if that string is in the cache, 
+    true if it is not'''
+    if ext in cache:
+        return False
+    else:
+        return True
+
+def build_url(ext):
+    '''concatenates the extension to the latin library
+     index page
+     This will need to be revised to accept CLI argument
+     when '''
+    return "https://thelatinlibrary.com/" + ext
+
+def write_file(fn, text):
+    '''accepts a filename and the text to write to the
+     file and opens or creates the file, writes the text
+      and closes the file'''
+    pass
+
+def make_dict(keys, values):
+    '''accepts a list of keys and values and writes them
+    into a dictionary which it returns.'''
+    pass
+
+
 
 def recursive_scrape(url):
+    '''This recursive function is effectively a depth-first
+     search of the filesystem containing the text to be 
+     scraped. It builds a list of links on the top level
+     page, then visits the first link on that page that links
+     to another file within the filesystem. '''
     time.sleep(5)
     print("recursive_scrape receiving url: ", url)
     try:
