@@ -13,19 +13,19 @@ import os
 filenames = []
 for filename in os.listdir('ovid'):
     filenames.append(str(filename))
-print(filenames)
+
 #then, concatenate them into one text file https://stackoverflow.com/questions/13613336/python-concatenate-text-files
 with open('corpora/all.txt', 'w') as outfile:
     for fname in filenames:
         with open('ovid/' + fname, 'r') as infile:
             for line in infile:
                 outfile.write(line)
-print('outfile written')
+
 
 lemmatizer = BackoffLatinLemmatizer()
 ltr_str = ''
 
-file = open('ovid/sample_text.txt', 'r')
+file = open('copora/all.txt', 'r')
 for line in file:
     ltr_str += str(line)
 file.close()
