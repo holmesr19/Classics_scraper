@@ -25,7 +25,7 @@ with open('corpora/all.txt', 'w') as outfile:
 lemmatizer = BackoffLatinLemmatizer()
 ltr_str = ''
 
-file = open('copora/all.txt', 'r')
+file = open('corpora/all.txt', 'r')
 for line in file:
     ltr_str += str(line)
 file.close()
@@ -38,4 +38,42 @@ for symbol in string.punctuation:
 np_str = np.char.lower(np_str)
 tokens = np_str.tolist().split()
 lemmatized = lemmatizer.lemmatize(tokens)
-#print(filenames)
+with open ('corpora/all_lemmatized.txt', 'w') as lemmata:
+    for parsed in lemmatized:
+        lemmata.write(parsed[1] + ' ')
+#print('all lemmata written successfully :)')
+
+#make list of heroides filnames
+her_filnames = []
+for filename in filenames:
+    if filename[5:8] == 'her':
+        her_filnames.append(str(filename))
+
+#add their text to corpora/her.txt
+with open('corpora/her.txt', 'w') as outfile:
+    for fname in her_filnames:
+        with open('ovid/' + fname, 'r') as infile:
+            for line in infile:
+                outfile.write(line)
+
+#lemmatize (and clean) the fool out that mf (this should be a function)
+her_str = ''
+
+her_file = open('corpora/her.txt', 'r')
+for line in her_file:
+    her_str += str(line)
+her_file.close()
+
+her_np_str = np.asarray(her_str)   
+
+for symbol in string.punctuation:
+    her_np_str = np.char.replace(her_np_str, symbol, '')
+
+her_np_str = np.char.lower(her_np_str)
+her_tokens = her_np_str.tolist().split()
+her_lemmatized = lemmatizer.lemmatize(her_tokens)
+with open ('corpora/her_lemmatized.txt', 'w') as lemmata:
+    for parsed in her_lemmatized:
+        lemmata.write(parsed[1] + ' ')
+print("heroides lemmata written successfully :')")
+#write the lemmatized output to corpora/her_lemmatized.txt
