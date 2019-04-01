@@ -46,11 +46,11 @@ with open ('corpora/all_lemmatized.txt', 'w') as lemmata:
 #make list of heroides filnames
 her_filnames = []
 for filename in filenames:
-    if filename[5:8] == 'her':
+    if filename[5:8] == 'met':
         her_filnames.append(str(filename))
 
 #add their text to corpora/her.txt
-with open('corpora/her.txt', 'w') as outfile:
+with open('corpora/met.txt', 'w') as outfile:
     for fname in her_filnames:
         with open('ovid/' + fname, 'r') as infile:
             for line in infile:
@@ -59,7 +59,7 @@ with open('corpora/her.txt', 'w') as outfile:
 #lemmatize (and clean) the fool out that mf (this should be a function)
 her_str = ''
 
-her_file = open('corpora/her.txt', 'r')
+her_file = open('corpora/met.txt', 'r')
 for line in her_file:
     her_str += str(line)
 her_file.close()
@@ -72,7 +72,7 @@ for symbol in string.punctuation:
 her_np_str = np.char.lower(her_np_str)
 her_tokens = her_np_str.tolist().split()
 her_lemmatized = lemmatizer.lemmatize(her_tokens)
-with open ('corpora/her_lemmatized.txt', 'w') as lemmata:
+with open ('corpora/met_lemmatized.txt', 'w') as lemmata:
     for parsed in her_lemmatized:
         lemmata.write(parsed[1] + ' ')
 print("heroides lemmata written successfully :')")
