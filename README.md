@@ -24,6 +24,8 @@ requests
 
 bs4
 
+Stopwords list from https://github.com/stopwords-iso/stopwords-la used under MIT License
+
 ### To-do
 clean recursive scraping code
 
